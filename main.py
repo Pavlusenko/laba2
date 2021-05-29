@@ -37,7 +37,6 @@ class Circle:
 
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     cir1 = Circle(3, 5, 3)
     cir2 = Circle(7, 8, 2)
