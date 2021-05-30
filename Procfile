@@ -1,4 +1,3 @@
-#web: gunicorn main:app
-web: gunicorn -b :$PORT main:app
+web: gunicorn main:app
 heroku ps:scale worker=1
 
