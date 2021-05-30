@@ -1,47 +1,38 @@
-import math
+import copy
 
-class Circle:
-    def __init__(self, x, y, radius):
-        self.x = x
-        self.y = y
-        self.radius = radius
+from flask import render_template
+from flask import Flask
+from geometric import Circle
 
-    def area(self):
-        return math.pi * (self.radius ** 2)  # площадь окружности
+app = Flask(__name__)
 
-    def perimeter(self):
-        return 2 * math.pi * self.radius  # периметр окружности
+@app.route('/')
+def index():
+    result = []
 
-    def concentrichnost(self, cir):  # концентричность окружностей
-        if self.x == cir.x & self.y == cir.y:
-            print('Окружности концентричны')
-        else:
-            print('Окружности не концентричны')
+    c1 = Circle(3, 5, 3)
+    c2 = Circle(7, 8, 2)
 
-    def persechenie(self, cir):  # пересечение окружностей
-        if self.x == cir.x:
-            if self.radius + cir.radius > abs(self.y - cir.y):
-                print('Окружности пересекаются')
-            else:
-                print('Окружности не пересекаются')
-        elif self.y == cir.y:
-            if self.radius + cir.radius > abs(self.x - cir.x):
-                print('Окружности пересекаются')
-            else:
-                print('Окружности не пересекаются')
-        else:
-            if (self.radius + cir.radius) ** 2 > abs((self.x - cir.x) ** 2 - (self.y - cir.y) ** 2):
-                print('Окружности пересекаются')
-            else:
-                print('Окружности не пересекаются')
+    print(c1)
+    print(c2)
 
+    result.append(c1)
+    result.append(c2)
 
+    print("Площадь круга: ", c1.area())
+    print("Длина окружности: ", c2.perimeter())
+
+    result.append("Площадь круга: " + str(c1.area()))
+    result.append("Длина окружности: " + str(c2.perimeter()))
+
+    print("c1 concentric c2 ", c1.concentrichnost(c2))
+    result.append("c1 concentric c2 " + str(c1.concentrichnost(c2)))
+
+    return render_template('base.html', results=result)
 
 if __name__ == '__main__':
-    cir1 = Circle(3, 5, 3)
-    cir2 = Circle(7, 8, 2)
-    Circle.persechenie(cir1, cir2)
-    Circle.concentrichnost(cir1, cir2)
-    print("Площадь круга:", round(Circle.area(cir1), 2))
-    print("Длина окружности:", round(Circle.perimeter(cir1), 2))
+    app.run(debug=True)
+
+
+
 
