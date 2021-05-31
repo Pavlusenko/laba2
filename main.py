@@ -1,8 +1,6 @@
-import copy
-
 from flask import render_template
 from flask import Flask
-from geometric import Circle
+from laba2.geometric import Circle
 
 app = Flask(__name__)
 
